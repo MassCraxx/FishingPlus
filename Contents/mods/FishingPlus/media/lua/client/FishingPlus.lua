@@ -3,15 +3,51 @@
 --**              MassCraxx + ROBERT JOHNSON               **
 --***********************************************************
 
--- Features:
---- XP adjusted to size of caught fish
---- trash will gain (small) fixed amount of XP
---- add lots of possible trash loot
---- dont decrease abundance on caught trash
---- better trash items with higher level
---- fish inner size roll dependend on outer size roll
--- Further ideas:
---- Profession dependend LootTable
+--[[
+[h1]Vanilla Fishing Rework[/h1]
+
+[h3]Features:[/h3]
+
+> [b]Adds features of [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2696281225]Bricks Wants Fish[/url] (Big thanks to bricks for letting me include his idea)[/b]
+[list]
+[*] Fish size chance now scales off fishing level
+[*] High fishing levels have a better chance of catching bigger fish
+[*] Small fish become nonexistent past Fishing level 5
+[*] Added new fish size: Prize - 50% larger than Big fish
+[*] Adjusted fish size chance distribution
+[/list]
+
+> [b]Reworked XP gain to be more rewarding[/b]
+[list]
+[*] Increase XP gain in general (adjustable via Sandbox options)
+[*] Gained XP scales with the actual size of caught fish
+[*] Catching bigger fish gains significantly more XP than catching smaller ones
+[*] Show gained XP just as in Foraging
+[/list]
+
+> [b]Reworked trash loot generation[/b]
+[list]
+[*] Catching trash gains fixed amount of XP
+[*] Trash loot is taken from a weighted loot table containing many different items
+[*] Chance of slightly more useful trash items with higher fishing level
+[/list]
+
+[h3]Sandbox options:[/h3]
+[list]
+[*] Choose from 3 different XP gain options - High, Medium, Low (Vanilla-near)
+[*] Free XP multiplier for fine balancing
+[*] Fish nutrition factor to adjust the nutrition value of caught fish
+[*] En- / Disable reworked trash loot table
+[*] Set if fish abundance should decrease every catch or only if catching fish
+[/list]
+
+Can be en- and disabled on existing savegames and is fully multiplayer compatible.
+On dedicated servers, Sandbox options can be adjusted any time (may require restart).
+
+[hr][/hr] 
+Workshop ID: 2757633688
+Mod ID: FishingPlus
+]]
 
 FishingPlus = _G['FishingPlus'] or {}
 
