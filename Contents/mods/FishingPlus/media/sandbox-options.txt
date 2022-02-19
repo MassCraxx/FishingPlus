@@ -1,0 +1,31 @@
+VERSION = 1,
+
+option FishingPlus.XpSetting
+{
+	type = enum, numValues = 3, default = 2, 
+	page = FishingPlus, translation = FishingPlusXpSetting,
+}
+
+option FishingPlus.XpMultiplier
+{
+	type = string, default = 1.0,
+	page = FishingPlus, translation = FishingPlusXpMulti,
+}
+
+option FishingPlus.FishNutritionFactor
+{
+	type = string, default = 2.2,
+	page = FishingPlus, translation = FishingPlusFishNutritionFactor,
+}
+
+option FishingPlus.TrashItemConfig
+{
+	type = enum, numValues = 2, default = 1,
+	page = FishingPlus, translation = FishingPlusTrashItemConfig,
+}
+
+option FishingPlus.DecreaseAbundance
+{
+	type = enum, numValues = 2, default = 1,
+	page = FishingPlus, translation = FishingPlusDecreaseAbundance,
+}

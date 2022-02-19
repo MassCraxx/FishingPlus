@@ -1,0 +1,6 @@
+version=1
+id=2757633688
+title=Fishing+
+description=Vanilla Fishing Rework.
+tags=Build 41;Balance;Food;Multiplayer
+visibility=unlisted

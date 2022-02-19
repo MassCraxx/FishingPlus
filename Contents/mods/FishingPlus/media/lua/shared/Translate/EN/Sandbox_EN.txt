@@ -1,0 +1,26 @@
+Sandbox_EN = {
+	Sandbox_FishingPlus = "Fishing+",
+
+	Sandbox_FishingPlusXpSetting = "XP Gain",
+	Sandbox_FishingPlusXpSetting_tooltip = "The higher the setting, the higher the XP gain per fish and the bigger the increased bonus XP by size."
+	Sandbox_FishingPlusXpSetting_option1 = "Low (Vanilla-near)"
+	Sandbox_FishingPlusXpSetting_option2 = "Medium"
+	Sandbox_FishingPlusXpSetting_option3 = "High (x2)"
+	
+	Sandbox_FishingPlusXpMulti = "XP Multiplier",
+	Sandbox_FishingPlusXpMulti_tooltip = "Gained XP values will be multiplied by this value."
+
+	Sandbox_FishingPlusFishNutritionFactor = "Fish Nutrition Factor",
+	Sandbox_FishingPlusFishNutritionFactor_tooltip = "Increase to catch fish with higher nutrition values. (Vanilla 2.2)"
+
+	Sandbox_FishingPlusTrashItemConfig = "Trash Loot Spawn",
+	Sandbox_FishingPlusTrashItemConfig_tooltip = "Set what trash loot should spawn. Fishing+ uses a weighted loot table whereas vanilla spawns one of two items randomly."
+	Sandbox_FishingPlusTrashItemConfig_option1 = "Fishing+ Trash Loot Generation"
+	Sandbox_FishingPlusTrashItemConfig_option2 = "Vanilla Trash Loot"
+	
+	Sandbox_FishingPlusDecreaseAbundance = "Decrease Fish Abundance",
+	Sandbox_FishingPlusDecreaseAbundance_tooltip = "Decreases the Fish Abundance whenever catching anything (Vanilla) or only when catching fish."
+	Sandbox_FishingPlusDecreaseAbundance_option1 = "On any catch (Vanilla)"
+	Sandbox_FishingPlusDecreaseAbundance_option2 = "Only when catching fish"
+	
+}
