@@ -88,7 +88,7 @@ function ISFishingAction:perform()
     local caughtFish = false;
     if self:attractFish() then -- caught something !
         local fish = self:getFish();
-        if updateZone and fish.name then -- only update if caught item is a fish
+        if updateZone and fish.fish and fish.fish.name then -- only update if caught item is a fish
             local fishLeft = tonumber(updateZone:getName());
             updateZone:setName(tostring(fishLeft - 1));
             updateZone:setLastActionTimestamp(getGametimeTimestamp());
@@ -228,7 +228,7 @@ function ISFishingAction:getFish()
     local gainedXP = 1;
 
     fish.fish = self:getFishByLure();
-    if fish.fish.name then -- if no name then it's a "trash" item
+    if fish.fish and fish.fish.name then -- if no name then it's a "trash" item
     -- then we may broke our line
         if not self:brokeLine(fish) then
             -- we gonna create our fish
@@ -420,6 +420,11 @@ end
 
 function FishingPlus:getTrashItem(fishingLvl)
     local lootTable = FishingPlus:getTrashLoot(fishingLvl);
+    if lootTable == nil or #lootTable == 0 then
+        print("Could not load TrashItems loot table! Returning UnusableWood..")
+        return {item = "Base.UnusableWood", weight = 500}
+    end
+
     local totalWeight = lootTable.weight
 	local randomNumber = ZombRand(1, totalWeight); --math.random(1,totalWeight)
 
@@ -433,6 +438,9 @@ function FishingPlus:getTrashItem(fishingLvl)
             end
         end
     end
+
+    print("No valid TrashItem found. Returning UnusableWood.")
+    return {item = "Base.UnusableWood", weight = 500}
 end
 
 function FishingPlus:getTrashLoot(fishingLvl)

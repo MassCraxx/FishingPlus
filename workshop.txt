@@ -43,4 +43,4 @@ description=On dedicated servers, Sandbox options can be adjusted any time (may 
 description=
 description=[hr][/hr]
 tags=Build 41;Balance;Food;Multiplayer
-visibility=unlisted
+visibility=public
