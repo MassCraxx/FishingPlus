@@ -22,5 +22,7 @@ Sandbox_EN = {
 	Sandbox_FishingPlusDecreaseAbundance_tooltip = "Decreases the Fish Abundance whenever catching anything (Vanilla) or only when catching fish."
 	Sandbox_FishingPlusDecreaseAbundance_option1 = "On any catch (Vanilla)"
 	Sandbox_FishingPlusDecreaseAbundance_option2 = "Only when catching fish"
-	
+
+	Sandbox_FishingPlusRenameFish = "Show Size in Fish Names"
+	Sandbox_FishingPlusRenameFish_tooltip = "Include the size of the fish in its displayed name. NOTE: This feature will use english names for all fish caught by this mod."
 }

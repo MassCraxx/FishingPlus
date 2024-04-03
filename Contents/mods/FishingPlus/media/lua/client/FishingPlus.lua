@@ -1,5 +1,5 @@
 --***********************************************************
---**                    Fishing+ v1                        **
+--**                    Fishing+ v2                        **
 --**              MassCraxx + ROBERT JOHNSON               **
 --***********************************************************
 
@@ -372,7 +372,7 @@ function ISFishingAction:createFish(fishType, fish, fishSizeNumber, fishSizeThre
     fishToCreate:setWorldScale(scaleMod + baseScale);
 
     -- the fish name is like : Big Trout - 26cm
-    if not fish.noNameChange then
+    if SandboxVars.FishingPlus.RenameFish then
         local prefix = fishType.size
         if ancient then
             local prefixes = {"Holy", "Ancient", "The One", "Legendary"};

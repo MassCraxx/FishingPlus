@@ -29,3 +29,9 @@ option FishingPlus.DecreaseAbundance
 	type = enum, numValues = 2, default = 1,
 	page = FishingPlus, translation = FishingPlusDecreaseAbundance,
 }
+
+option FishingPlus.RenameFish
+{
+	type = boolean, default = false,
+	page = FishingPlus, translation = FishingPlusRenameFish,
+}
