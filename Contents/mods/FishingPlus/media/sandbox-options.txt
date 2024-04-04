@@ -32,6 +32,6 @@ option FishingPlus.DecreaseAbundance
 
 option FishingPlus.RenameFish
 {
-	type = boolean, default = false,
+	type = boolean, default = true,
 	page = FishingPlus, translation = FishingPlusRenameFish,
 }

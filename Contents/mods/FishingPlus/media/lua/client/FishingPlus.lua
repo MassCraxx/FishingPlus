@@ -1,5 +1,5 @@
 --***********************************************************
---**                    Fishing+ v2                        **
+--**                    Fishing+ v3                        **
 --**              MassCraxx + ROBERT JOHNSON               **
 --***********************************************************
 
@@ -236,6 +236,8 @@ function ISFishingAction:getFish()
 --            getSoundManager():PlayWorldSound("getFish", false, self.character:getSquare(), 1, 20, 1, false)
             self.character:playSound("CatchFish");
             addSound(self.character, self.character:getX(), self.character:getY(), self.character:getZ(), 20, 1)
+        else
+            fish.fish = nil;
         end
     else
         fishItem = InventoryItemFactory.CreateItem(fish.fish.item);
@@ -262,8 +264,12 @@ function ISFishingAction:getFish()
         end
     end
     
+    if fishItem then
+        print("Fishing caught: "..(fish.fish.name or fishItem:getName()).." | fishSizeNumber: "..fishSizeNumber.." | gainedXP: "..gainedXP)
+    else
+        print("Line broke! | gainedXP: "..gainedXP)
+    end
     -- gain XP
-    print("Fishing caught: "..(fish.fish.name or fish.fish.item).." | fishSizeNumber: "..fishSizeNumber.." | gainedXP: "..gainedXP)
     local currentXP = self.character:getXp():getXP(Perks.Fishing);
     self.character:getXp():AddXP(Perks.Fishing, gainedXP);
 	gainedXP = self.character:getXp():getXP(Perks.Fishing) - currentXP;
@@ -349,22 +355,39 @@ function ISFishingAction:createFish(fishType, fish, fishSizeNumber, fishSizeThre
         minSize = fish.big.minSize;
         size = FishingPlus:getSizeFromRoll(minSize, maxSize, fishSizeNumber, fishSizeThreshold);
         weightKg = size / fish.big.weightChange;
-        baseScale = 1.4;
+        baseScale = 1.3;
     else
         --size = ZombRand(fish.big.minSize*1.5, fish.big.maxSize*1.5);
         maxSize = fish.big.maxSize*1.5;
         minSize = fish.big.minSize*1.5;
         size = FishingPlus:getSizeFromRoll(minSize, maxSize, fishSizeNumber, fishSizeThreshold);
         weightKg = size / fish.big.weightChange;
-        baseScale = 1.7;
-        ancient = size >= (maxSize - 1);
-        print("Ancient Roll "..size .." / ".. maxSize);
+        baseScale = 1.4;
+
+        local ancientThreshold = maxSize - maxSize * 0.03; --size in max 3%
+        ancient = size >= ancientThreshold;
+        print(">>Ancient Roll " .. size .." / ".. ancientThreshold .. "(" .. maxSize .. ")");
+        
+        if ancient then
+            baseScale = 1.5;
+            -- split defined legendary prefixes to array
+            local prefixCfgString = getText("IGUI_FishingPlus_LegendaryPrefixes");
+            local prefixes = {};
+            local prefixPattern = string.format("([^%s]+)", ",");
+            prefixCfgString:gsub(prefixPattern, function(c) prefixes[#prefixes+1] = c end);
+
+            if prefixes and #prefixes > 0 then
+                fishType.size = prefixes[ZombRand(1,#prefixes+1)];
+            end
+        else
+            fishType.size = "Big"; -- actual vanilla size "Prize" has no translation...
+        end
     end
 
     local scaleMod = (((size - minSize) + 1) / ((maxSize - minSize) + 1) / 2);
     local nutritionConfigMulti = tonumber(SandboxVars.FishingPlus.FishNutritionFactor) or 2.2;
     local nutritionFactor = nutritionConfigMulti * weightKg / baseWeightLb;
-    print("Create Fish ", fishType.size, size, minSize, maxSize, " % ", scaleMod, "full scale: ", (baseScale + scaleMod), " nutritionFactor: ", nutritionFactor, " (", nutritionConfigMulti, ")");
+    print("Create Fish: " .. fishType.size.. " " .. fish.name.. " | Size:" .. size .. " >".. minSize .. " <".. maxSize .. " | nutri: " .. nutritionFactor .. " (x" .. nutritionConfigMulti ..  ")");
     fishToCreate:setCalories(fishToCreate:getCalories() * nutritionFactor);
     fishToCreate:setLipids(fishToCreate:getLipids() * nutritionFactor);
     fishToCreate:setCarbohydrates(fishToCreate:getCarbohydrates() * nutritionFactor);
@@ -374,11 +397,11 @@ function ISFishingAction:createFish(fishType, fish, fishSizeNumber, fishSizeThre
     -- the fish name is like : Big Trout - 26cm
     if SandboxVars.FishingPlus.RenameFish then
         local prefix = fishType.size
-        if ancient then
-            local prefixes = {"Holy", "Ancient", "The One", "Legendary"};
-            prefix = prefixes[ZombRand(1,#prefixes)]
+        if not ancient then
+            prefix = getText("IGUI_Fish_" .. prefix);
         end
-        fishToCreate:setName(prefix .. " " .. fish.name .. " - " .. string.format(size) .. "cm");
+        local localizedFishName = getText("IGUI_Fish_"..string.gsub(fish.name, "%s+", ""));
+        fishToCreate:setName(prefix .. " " .. localizedFishName .. " - " .. string.format(size) .. "cm");
     end
 
     -- hunger reduction is weight of the fish div by 6, and set it to negative

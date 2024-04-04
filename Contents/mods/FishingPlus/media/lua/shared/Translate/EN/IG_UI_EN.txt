@@ -1,0 +1,3 @@
+IGUI_EN = {
+	IGUI_FishingPlus_LegendaryPrefixes = "Legendary,Ancient,Holy,The One"
+}
