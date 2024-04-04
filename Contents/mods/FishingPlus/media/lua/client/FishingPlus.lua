@@ -88,7 +88,7 @@ function ISFishingAction:perform()
     local caughtFish = false;
     if self:attractFish() then -- caught something !
         local fish = self:getFish();
-        if updateZone and fish.fish and fish.fish.name then -- only update if caught item is a fish
+        if updateZone and fish and fish.fish and fish.fish.name then -- only update if caught item is a fish
             local fishLeft = tonumber(updateZone:getName());
             updateZone:setName(tostring(fishLeft - 1));
             updateZone:setLastActionTimestamp(getGametimeTimestamp());
@@ -228,7 +228,24 @@ function ISFishingAction:getFish()
     local gainedXP = 1;
 
     fish.fish = self:getFishByLure();
-    if fish.fish and fish.fish.name then -- if no name then it's a "trash" item
+
+    -- DEBUG
+    if not fish or not fish.fish then
+        print("ERROR: No item was generated in getFishByLure! Please send this log to the mod developer!");
+        print("Possible fishes: " .. #Fishing.fishes .. " | Possible trash items: " .. #Fishing.trashItems .. " | using lure: " .. (self.lure and self.lure:getType()));
+        local trashItemConfig = SandboxVars.FishingPlus.TrashItemConfig or 1;
+        if trashItemConfig == 1 then
+            local testTrash = FishingPlus:getTrashItem(self.fishingLvl);
+            if testTrash then
+                print("Test trash generation: ".. testTrash.item);
+            else
+                print("Test trash generation failed!");
+            end
+        end
+        HaloTextHelper.addText(self.character, "ERROR")
+        return fish
+    end
+    if fish.fish.name then -- if no name then it's a "trash" item
     -- then we may broke our line
         if not self:brokeLine(fish) then
             -- we gonna create our fish
